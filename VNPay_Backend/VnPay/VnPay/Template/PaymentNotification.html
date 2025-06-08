@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận Thanh toán</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow-y: auto;
+        }
+
+        .payment-container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: left;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-container h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .payment-result {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .success {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .failure {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .payment-details {
+            margin-top: 15px;
+        }
+
+            .payment-details p {
+                margin: 12px 0;
+                color: #34495e;
+                font-size: 14px;
+                line-height: 1.5;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .payment-details span.label {
+                font-weight: 600;
+                color: #2c3e50;
+                min-width: 150px
+            }
+
+            .payment-details span.value {
+                color: #7f8c8d;
+                word-break: break-word;
+            }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            transition: all 0.3s ease;
+        }
+
+            a:hover {
+                background-color: #3498db;
+                color: #ffffff;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Kết quả Thanh toán</h1>
+        <div class="payment-result {0}">{1}</div> <!-- {0} là class (success/failure), {1} là message -->
+        <!-- Hiển thị lỗi nếu có -->
+        {12} <!-- ErrorMessage -->
+        <div class="payment-details">
+            {2} <!-- orderId -->
+            {3} <!-- transactionId -->
+            {4} <!-- vnp_Amount -->
+            {5} <!-- vnp_BankCode -->
+            {6} <!-- vnp_BankTranNo -->
+            {7} <!-- vnp_CardType -->
+            {8} <!-- vnp_OrderInfo -->
+            {9} <!-- vnp_PayDate -->
+            {10} <!-- vnp_TransactionStatus -->
+            {11} <!-- vnp_TxnRef -->
+        </div>
+    </div>
+</body>
+</html>

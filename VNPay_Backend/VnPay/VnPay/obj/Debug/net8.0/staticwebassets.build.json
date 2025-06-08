@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "KySQV265+7FczjOkZAupmOheJUA+tzOYC24tR0WfsNI=",
+  "Source": "VnPay",
+  "BasePath": "_content/VnPay",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

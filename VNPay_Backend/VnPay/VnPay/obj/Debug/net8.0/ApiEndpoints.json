@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "VnPay.Controllers.PaymentController",
+    "Method": "CreatePaymentPlansUrlVnPay",
+    "RelativePath": "api/v0/payment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "VnPay.Model.PaymentRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "VnPay.Controllers.PaymentController",
+    "Method": "PaymentCallBackVnPay",
+    "RelativePath": "api/v0/payment/vnpay/callback",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

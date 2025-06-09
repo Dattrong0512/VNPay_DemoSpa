@@ -23,6 +23,7 @@ namespace VnPay.Controllers
             _vnPay = vnPay;
         }
 
+        #region CreatePayment
         [HttpPost("")]
         public async Task<IActionResult> CreatePaymentPlansUrlVnPay([FromBody] PaymentRequestModel request)
         {
@@ -30,32 +31,16 @@ namespace VnPay.Controllers
             _logger.LogInformation(url);
             return Ok(new { paymentUrl = url });
         }
-
+        #endregion
 
         #region VnPayCallback
-        /// <summary>
-        /// Handles the VnPay payment callback and displays the payment result.
-        /// Used only by back-end, front-end doesn't care     
-        /// </summary>
         [HttpGet("vnpay/callback")]
         public async Task<IActionResult> PaymentCallBackVnPay()
         {
+            var fullUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}";
+            _logger.LogInformation("Full request URL: {FullUrl}", fullUrl);
             var response = await _vnPay.PaymentExecute(Request.Query);
 
-            _logger.LogInformation("Response from PaymentExecute: Success={Success}, ErrorMessage={ErrorMessage}, ResponseCode={ResponseCode}",
-                response.Success, response.ErrorMessage, response.VnPayResponseCode);
-
-            // Ghi log kết quả
-            if (response.Success)
-            {
-                _logger.LogInformation("Payment successful. OrderId: {OrderId}, TransactionId: {TransactionId}",
-                    response.OrderId, response.TransactionId);
-            }
-            else
-            {
-                _logger.LogWarning("Payment failed. ResponseCode: {ResponseCode}, ErrorMessage: {ErrorMessage}",
-                    response.VnPayResponseCode, response.ErrorMessage);
-            }
 
             // Đọc nội dung file HTML từ TemplateReader
             string htmlContent = await _templateReader.GetTemplate("Template/PaymentNotification.html");
@@ -90,11 +75,8 @@ namespace VnPay.Controllers
             var vnp_OrderInfo = query.ContainsKey("vnp_OrderInfo")
                 ? $"<p><span class=\"label\">Thông tin đơn hàng:</span><span class=\"value\">{HttpUtility.UrlDecode(query["vnp_OrderInfo"])}</span></p>"
                 : "";
-            var vnp_PayDate = query.ContainsKey("vnp_PayDate")
-                ? DateTime.TryParseExact(query["vnp_PayDate"].ToString(), "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var payDate)
-                    ? $"<p><span class=\"label\">Thời gian thanh toán:</span><span class=\"value\">{payDate:dd/MM/yyyy HH:mm:ss}</span></p>"
-                    : "<p><span class=\"label\">Thời gian thanh toán:</span><span class=\"value\">Không hợp lệ</span></p>"
-                : "";
+            var payDate = DateTime.Now;
+            var vnp_PayDate = $"<p><span class=\"label\">Thời gian thanh toán:</span><span class=\"value\">{payDate:dd/MM/yyyy HH:mm:ss}</span></p>";
             var vnp_TransactionStatus = query.ContainsKey("vnp_TransactionStatus")
                 ? $"<p><span class=\"label\">Trạng thái giao dịch:</span><span class=\"value\">{query["vnp_TransactionStatus"]}</span></p>"
                 : "";

@@ -41,7 +41,7 @@ namespace VnPay.Libraries
             {
                 data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
             }
-
+            
             var querystring = data.ToString();
 
             baseUrl += "?" + querystring;

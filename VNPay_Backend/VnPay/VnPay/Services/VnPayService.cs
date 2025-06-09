@@ -16,6 +16,7 @@ namespace VnPay.Services
             _logger = logger;
         }
 
+        #region CreatePayment
         public async Task<string> CreatePayment(PaymentRequestModel request, HttpContext context)
         {
             var vnpay = new VnPayLibrary();
@@ -43,7 +44,10 @@ namespace VnPay.Services
             Debug.WriteLine("Payment URL: " + paymentUrl);
             return paymentUrl;
         }
+        #endregion
 
+
+        #region PaymentExecute
         public async Task<PaymentResponseModel> PaymentExecute(IQueryCollection collections)
         {
             var vnpay = new VnPayLibrary();
@@ -56,7 +60,7 @@ namespace VnPay.Services
             }
 
             var vnp_TxnRef = vnpay.GetResponseData("vnp_TxnRef");
-            var vnp_OrderId = vnp_TxnRef; // Sử dụng trực tiếp vnp_TxnRef
+            var vnp_OrderId = vnp_TxnRef; 
             var vnp_TransactionID = vnpay.GetResponseData("vnp_TransactionNo");
             var vnp_SecureHash = collections.FirstOrDefault(p => p.Key == "vnp_SecureHash").Value;
             var vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
@@ -120,7 +124,8 @@ namespace VnPay.Services
 
             if (isSuccess)
             {
-                _logger.LogInformation(vnp_ResponseCode);
+                _logger.LogInformation("VnPay payment successful: OrderId={OrderId}, TransactionId={TransactionId}, Amount={Amount}, ResponseCode={ResponseCode}, OrderInfo={OrderInfo}",
+                    vnp_OrderId, vnp_TransactionID, vnp_Amount, vnp_ResponseCode, vnp_OrderInfo);
                 return new PaymentResponseModel
                 {
                     Success = isSuccess,
@@ -135,10 +140,8 @@ namespace VnPay.Services
             }
             return new PaymentResponseModel { Success = false };
 
-
-
         }
-
+        #endregion
 
     }
 }

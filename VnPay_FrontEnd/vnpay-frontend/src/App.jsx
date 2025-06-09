@@ -25,7 +25,7 @@ function App() {
     <div className="app-container">
       <div className="content">
         <img src={xemay} alt="Motorcycle" className="motorcycle-image" />
-        <h2 className="motorcycle-name">SH 160i</h2>
+        <h2 className="motorcycle-name">Honda SH 160i</h2>
         <p className="description">
           Kế thừa tinh hoa của dòng xe SH với những đường nét thanh lịch, sang trọng mang hơi thở Châu Âu cùng động cơ cải tiến đột phá và công nghệ tiên tiến, SH160i/125i mới sở hữu diện mạo đầy ấn tượng và nổi bật.
         </p>
